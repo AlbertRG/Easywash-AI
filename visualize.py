@@ -23,17 +23,17 @@ def draw_border(img, top_left, bottom_right, color=(0, 255, 0), thickness=5, lin
     return img
 
 
-results = pd.read_csv('./test_interpolated.csv')
+results = pd.read_csv('./detections_interpolated.csv')
 
 # load video
-video_path = 'autolavado.MP4'
+video_path = 'ewdemo.MP4'
 cap = cv2.VideoCapture(video_path)
 
 fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # Specify the codec
 fps = cap.get(cv2.CAP_PROP_FPS)
 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-out = cv2.VideoWriter('./autolavadoOUT.mp4', fourcc, fps, (width, height))
+out = cv2.VideoWriter('./ewdemoOUT.mp4', fourcc, fps, (width, height))
 
 license_plate = {}
 for car_id in np.unique(results['car_id']):
@@ -95,11 +95,11 @@ while ret:
 
                 cv2.putText(frame,
                             license_plate[df_.iloc[row_indx]['car_id']]['license_plate_number'],
-                            (int((car_x2 + car_x1 - text_width) / 2), int(car_y1 - H - 150 + (text_height / 2))),
+                            (int((car_x2 + car_x1 - text_width + 75) / 2), int(car_y1 - H - 150 + (text_height / 2))),
                             cv2.FONT_HERSHEY_SIMPLEX,
-                            2,
+                            1.6,
                             (0, 0, 0),
-                            12)
+                            8)
 
             except:
                 pass
